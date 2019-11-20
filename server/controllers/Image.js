@@ -163,9 +163,70 @@ const userPage = (req, res) => {
   });
 };
 
+const getHomeImg = (request, response) => {
+  const res = response;
+
+  return Img.ImgModel.findRandom((err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    const allImages = [];
+    docs.forEach((doc) => {
+      const imagePath = `./retrieve?name=${doc.name}`;
+      allImages.push(imagePath);
+    });
+
+    // This inserts ads into the images array every 5 images
+    for (let i = 0; i < allImages.length; i += 5) {
+      allImages.splice(i, 0, './assets/img/ad.png');
+    }
+
+    const categories = [];
+
+    // Split array
+    //https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
+    for (let i = 0; i < allImages.length; i += allImages.length / 3) {
+      categories.push(allImages.slice(i, i + allImages.length / 3));
+    }
+
+    return res.json({ imgs: categories });
+  });
+};
+
+const getUserImg = (request, response) => {
+  const res = response;
+
+  return Img.ImgModel.findByUser(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    const allImages = [];
+    docs.forEach((doc) => {
+      const imagePath = `./retrieve?name=${doc.name}`;
+      allImages.push(imagePath);
+    });
+
+    const categories = [];
+
+    // split array
+    for (let i = 0; i < allImages.length; i += allImages.length / 3) {
+      categories.push(allImages.slice(i, i + allImages.length / 3));
+    }
+
+    return res.json({ imgs: categories });
+  });
+}
+
 /* Exports */
 module.exports.uploadImage = uploadImage;
 module.exports.homePage = homePage;
 module.exports.userPage = userPage;
 module.exports.getToken = getToken;
 module.exports.retrieve = retrieveImage;
+
+module.exports.getHomeImg = getHomeImg;
+module.exports.getUserImg = getUserImg;

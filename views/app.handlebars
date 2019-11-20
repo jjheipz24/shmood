@@ -8,65 +8,21 @@
 <body>
 
     <div class="container-fluid">
-        <div class="row justify-content-center">
-            <div class="col-10">
-                <header>
-                    <h1 id="title"><a href="/">SHMOOD</a></h1>
-                    <p>create your own personalized mood board</p>
-                </header>
-            </div>
-            <div class="col-1">
+        <div id="header">
 
-            </div>
         </div>
 
         <!-- Image display columns -->
         <div class="row justify-content-center">
             <div class="col-10" id="grid">
-                <div class="row">
-                    <div class="col">
-                        {{#if imgs}}
-                        {{#each imgs}}
-                        <img src={{this}} class="img-fluid mb-4">
-                        {{/each}}
-                        {{else}}
-                        <h2 id="noImg">this column is empty</h2>
-                        {{/if}}
-                    </div>
-                    <div class="col">
-                        {{#if imgs2}}
-                        {{#each imgs2}}
-                        <img src={{this}} class="img-fluid mb-4">
-                        {{/each}}
-                        {{else}}
-                        <h2 id="noImg">this column is empty</h2>
-                        {{/if}}
-                    </div>
-                    <div class="col">
-                        {{#if imgs3}}
-                        {{#each imgs3}}
-                        <img src={{this}} class="img-fluid mb-4">
-                        {{/each}}
-                        {{else}}
-                        <h2 id="noImg">this column is empty</h2>
-                        {{/if}}
-                    </div>
-                </div>
+               
             </div>
 
             <!-- Sidebar, conditionally changes based on login/logout -->
             <div class="col-1" id="sidebar">
-                <div class="position-fixed btn-group-vertical">
-                    {{#if name.username}}
-                    <button><a href="/userPage">{{ name.username }}</a></button>
-                    <button><a href="/logout">logout</a></button>
-                    {{else}}
-                    <button><a href="/signup">signup</a></button>
-                    <button><a href="/login">login</a></button>
-                    {{/if}}
-                </div>
-
+               
             </div>
+            
         </div>
     </div>
     <script src="/assets/bundle.js"></script>
