@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>SHMOOD</title>
+</head>
+
+<body class="login-signup-page">
+ 
+ <!-- Card -->
+  <div class="container" fluid>
+    <section id="login" class="row">
+      <form id="loginForm" name="loginForm" action="/login" method="POST" class="mainForm">
+        <div class="greeting">
+          <img class="icon" src="./assets/img/largeLogo.png" alt="logo for Shmood">
+          <h1>WELCOME</h1>
+        </div>
+
+        <!-- Login input fields -->
+        <div class="fields">
+          <div class="form-group col-xs-4">
+            <input class="field" id="user" type="text" name="username" placeholder="Username" />
+          </div>
+          <div class="form-group col-xs-4">
+            <input class="field" id="pass" type="password" name="pass" placeholder="Password" />
+          </div>
+        </div>
+        <input id="loginCsrf" type="hidden" name="_csrf" value={{csrfToken}} />
+        <button class="btn btn-secondary rounded-pill" id="loginButton" type="submit">Sign In</button>
+        
+        <!-- Error msg div -->
+        <div class="alert alert-danger error" role="alert">
+          Username or password is incorrect
+        </div>
+        
+        <!-- link to signup page -->
+        <p>Don't have an account? <a href="./signup">Sign Up</a></p>
+      </form>
+    </section>
+  </div>
+  <script src="/assets/bundle.js"></script>
+</body>
+
+</html>
