@@ -18,6 +18,23 @@ const showError = (message) => {
         window.location = result.redirect;
       },
       error: (xhr, status, error) => {
+        console.log(xhr.responseText);
+        const messageObj = JSON.parse(xhr.responseText);
+        showError(messageObj.error);
+      }
+    });
+  }
+
+  const sendGenericAjax = (method, action, data, callback) =>  {
+    $.ajax({
+      cache: false,
+      type: method,
+      url: action,
+      data: data,
+      dataType: "json",
+      success: callback,
+      error: (xhr, status, error) => {
+        console.log(xhr.responseText);
         const messageObj = JSON.parse(xhr.responseText);
   
         showError(messageObj.error);

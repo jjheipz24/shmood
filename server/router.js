@@ -19,6 +19,7 @@ const router = (app) => {
   app.get('/getUserImg', mid.requiresLogin, controllers.Image.getUserImg);
   app.get('/getHomeImg', controllers.Image.getHomeImg);
   app.get('/getUsername', mid.requiresLogin, controllers.Image.getUsername);
+  app.get('/getToken', mid.requiresSecure, controllers.Image.getToken);
 
   // https://stackoverflow.com/questions/6528876/how-to-redirect-404-errors-to-a-page-in-expressjs
   app.get('/*', controllers.Account.errorPage);
