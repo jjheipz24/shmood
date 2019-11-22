@@ -98,10 +98,18 @@ const SideBar = (props) => {
 const loadImages = () => {
     sendAjax('GET', '/getHomeImg', null, (data) => {
         ReactDOM.render(
-           //render grid 
+            <ImageGrid imgs={data.imgs} />, document.querySelector("#grid")
         );
     });
 };
+
+const loadUsername = () => {
+    sendAjax('GET', '/getUsername', null, (data) => {
+        ReactDOM.render(
+            <SideBar username={data.username} />, document.querySelector("#sidebar")
+        );
+    });
+}
 
 const setup = function(csrf) {
     ReactDOM.render(
@@ -113,10 +121,11 @@ const setup = function(csrf) {
     );
 
     ReactDOM.render(
-        <SideBar username={req.account.session} />, document.querySelector("#siderbar")
+        <SideBar username={[]} />, document.querySelector("#sidebar")
     );
 
     loadImages();
+    loadUsername();
 };
 
 

@@ -113,7 +113,7 @@ const homePage = (req, res) => {
     const categories = [];
 
     // Split array
-    //https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
+    // https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
     for (let i = 0; i < allImages.length; i += allImages.length / 3) {
       categories.push(allImages.slice(i, i + allImages.length / 3));
     }
@@ -186,7 +186,7 @@ const getHomeImg = (request, response) => {
     const categories = [];
 
     // Split array
-    //https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
+    // https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
     for (let i = 0; i < allImages.length; i += allImages.length / 3) {
       categories.push(allImages.slice(i, i + allImages.length / 3));
     }
@@ -197,6 +197,7 @@ const getHomeImg = (request, response) => {
 
 const getUserImg = (request, response) => {
   const res = response;
+  const req = request;
 
   return Img.ImgModel.findByUser(req.session.account._id, (err, docs) => {
     if (err) {
@@ -219,7 +220,14 @@ const getUserImg = (request, response) => {
 
     return res.json({ imgs: categories });
   });
-}
+};
+
+const getUsername = (request, response) => {
+  const req = request;
+  const res = response;
+
+  return res.json({ username: req.session.account.username });
+};
 
 /* Exports */
 module.exports.uploadImage = uploadImage;
@@ -230,3 +238,4 @@ module.exports.retrieve = retrieveImage;
 
 module.exports.getHomeImg = getHomeImg;
 module.exports.getUserImg = getUserImg;
+module.exports.getUsername = getUsername;
