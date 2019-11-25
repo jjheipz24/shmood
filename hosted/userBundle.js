@@ -293,10 +293,17 @@ var loadImages = function loadImages() {
     });
 };
 
-var loadUsername = function loadUsername() {
+var loadSidebar = function loadSidebar() {
     debugger;
     sendGenericAjax('GET', '/getUsername', null, function (data) {
-        ReactDOM.render(React.createElement(Header, { username: data.username }), document.querySelector("#headerU"), React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebarU"));
+        ReactDOM.render(React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebarU"));
+    });
+};
+
+var loadHeader = function loadHeader() {
+    debugger;
+    sendGenericAjax('GET', '/getUsername', null, function (data) {
+        ReactDOM.render(React.createElement(Header, { username: data.username }), document.querySelector("#headerU"));
     });
 };
 
@@ -308,7 +315,8 @@ var setup = function setup(csrf) {
     ReactDOM.render(React.createElement(SideBar, { username: "", token: csrf }), document.querySelector("#sidebarU"));
 
     loadImages();
-    loadUsername();
+    loadSidebar();
+    loadHeader();
 };
 
 var getToken = function getToken() {

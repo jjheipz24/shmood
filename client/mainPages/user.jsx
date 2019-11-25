@@ -177,11 +177,18 @@ const loadImages = () => {
     });
 };
 
-const loadUsername = () => { debugger
+const loadSidebar = () => { debugger
     sendGenericAjax('GET', '/getUsername', null, (data) => {
         ReactDOM.render(
-            <Header username={data.username} />, document.querySelector("#headerU"),
             <SideBar username={data.username} />, document.querySelector("#sidebarU")
+        );
+    });
+}
+
+const loadHeader = () => { debugger
+    sendGenericAjax('GET', '/getUsername', null, (data) => {
+        ReactDOM.render(
+            <Header username={data.username} />, document.querySelector("#headerU")
         );
     });
 }
@@ -200,7 +207,8 @@ const setup = function(csrf) {
     );
 
     loadImages();
-    loadUsername();
+    loadSidebar();
+    loadHeader();
 };
 
 
