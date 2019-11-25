@@ -87,3 +87,7 @@ var getToken = function getToken() {
     setup(result.csrfToken);
   });
 };
+
+$(document).ready(function () {
+  getToken();
+});

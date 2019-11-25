@@ -61,3 +61,7 @@ const handleSignup = (e) => {
         setup(result.csrfToken);
     });
 };
+
+$(document).ready(function() {
+  getToken();
+});
