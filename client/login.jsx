@@ -34,7 +34,7 @@
           <input class="field" id="pass" type="password" name="pass" placeholder="Password" />
         </div>
       </div>
-      <input id="loginCsrf" type="hidden" name="_csrf" value={{csrfToken}} />
+      <input id="loginCsrf" type="hidden" name="_csrf" value={props.csrf} />
       <button class="btn btn-secondary rounded-pill" id="loginButton" type="submit">Sign In</button>
       
       <div class="alert alert-danger error" role="alert">
@@ -46,8 +46,10 @@
   };
 
   const setup = function(csrf){
-    
-  }
+    ReactDOM.render(
+      <LoginForm csrf={csrf} />, document.querySelector('#login')
+    );
+  };
 
   const getToken = () => {
     sendGenericAjax('GET', '/getToken', null, (result) => {
