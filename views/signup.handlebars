@@ -10,35 +10,7 @@
   <!-- Card --> 
   <div class="container" fluid>
     <section id="signup" class="row">
-      <form id="signupForm" name="signupForm" action="/signup" method="POST" class="mainForm">
-        <div class="greeting">
-          <img class="icon" src="./assets/img/largeLogo.png" alt="logo for Shmood">
-          <h1>WELCOME</h1>
-        </div>
-
-        <!-- Login input fields -->
-        <div class="fields">
-          <div class="form-group col-xs-4">
-            <input class="field" id="user" type="text" name="username" placeholder="Username" />
-          </div>
-          <div class="form-group col-xs-4">
-            <input class="field" id="pass" type="password" name="pass" placeholder="Password" />
-          </div>
-          <div class="form-group col-xs-4">
-            <input class="field" id="pass2" type="password" name="pass2" placeholder="Retype password" />
-          </div>
-        </div>
-        <input id="signupCsrf" type="hidden" name="_csrf" value={{csrfToken}} />
-        <button class="btn btn-secondary rounded-pill" id="signupButton" type="submit">Sign Up</button>
-
-        <!-- Error msg div -->
-        <div class="alert alert-danger error" role="alert">
-          Passwords do not match
-        </div>
-
-        <!-- link to signup page -->
-        <p>Already have an account? <a href="./login">Login</a></p>
-      </form>
+      
     </section>
   </div>
   <script src="/assets/bundle.js"></script>
