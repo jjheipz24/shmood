@@ -226,9 +226,9 @@ const getUsername = (request, response) => {
   const req = request;
   const res = response;
 
-  if(req.session.account) {
+  if (req.session.account) {
     return res.json({ username: req.session.account.username });
-  } 
+  }
 
   return res.json({ username: '' });
 };

@@ -8,7 +8,12 @@
   "description": "A Simple Login Example using Node.js, Mongo and Redis",
   "main": "./server/app.js",
   "scripts": {
-    "build": "babel ./client --presets react --out-file ./hosted/bundle.js",
+    "buildMain": "babel ./client/mainPages/main.jsx --presets react --out-file ./hosted/mainBundle.js",
+    "buildUser": "babel ./client/mainPages/user.jsx  --presets react --out-file ./hosted/userBundle.js",
+    "buildLogin": "babel ./client/login.jsx  --presets react --out-file ./hosted/loginBundle.js",
+    "buildSignup": "babel ./client/signup.jsx  --presets react --out-file ./hosted/signupBundle.js",
+    "buildHelper": "babel ./client/helper/helper.js  --presets react --out-file ./hosted/bundle.js",
+    "build": "npm run buildMain && npm run buildUser && npm run buildLogin && npm run buildSignup && npm run buildHelper",
     "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
     "nodemon": "nodemon -e js,handlebars,css --watch ./server ./server/app.js",
     "start": "node ./server/app.js",
