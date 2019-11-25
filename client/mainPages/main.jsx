@@ -45,19 +45,19 @@ const ImageGrid = (props) => {
 
     const col1 = props.imgs[0].map(function(img) {
         return (
-            <img src={img} className="img-fluid mb-4"></img>
+            <img src={img} className="img-fluid mb-4" />
         );
     });
 
     const col2 = props.imgs[1].map(function(img) {
         return (
-            <img src={img} className="img-fluid mb-4"></img>
+            <img src={img} className="img-fluid mb-4" />
         );
     });
 
     const col3 = props.imgs[2].map(function(img) {
         return (
-            <img src={img} className="img-fluid mb-4"></img>
+            <img src={img} className="img-fluid mb-4" />
         );
     });
 
@@ -114,7 +114,7 @@ const loadUsername = () => { debugger
 
 const setup = function(csrf) {
     ReactDOM.render(
-        <Header csrf={csrf} />, document.querySelector("#header")
+        <Header />, document.querySelector("#header")
     );
 
     ReactDOM.render(
