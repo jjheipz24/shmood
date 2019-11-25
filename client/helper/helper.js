@@ -25,15 +25,15 @@ const showError = (message) => {
     });
   }
 
-  const sendGenericAjax = (method, action, data, callback) =>  {
-    $.ajax({
+  const sendGenericAjax = (method, action, data, callback) =>  { 
+    $.ajax({ 
       cache: false,
       type: method,
       url: action,
       data: data,
       dataType: "json",
       success: callback,
-      error: (xhr, status, error) => {
+      error: (xhr, status, error) => { 
         console.log(xhr.responseText);
         const messageObj = JSON.parse(xhr.responseText);
   

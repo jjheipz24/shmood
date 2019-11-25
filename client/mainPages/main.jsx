@@ -79,19 +79,19 @@ const ImageGrid = (props) => {
 }
 
 const SideBar = (props) => {
-    if(props.username) {
+    if(props.username === "" || !props.username) {     
         return (
             <div className="position-fixed btn-group-vertical">
-                <button><a href="/userPage">{props.username}</a></button>
-                <button><a href="/logout">logout</a></button>
+                <button><a href="/signup">signup</a></button>
+                <button><a href="/login">login</a></button>
             </div>
         );
     }
 
     return (
         <div className="position-fixed btn-group-vertical">
-            <button><a href="/signup">signup</a></button>
-            <button><a href="/login">login</a></button>
+            <button><a href="/userPage">{props.username}</a></button>
+            <button><a href="/logout">logout</a></button>
         </div>
     );
 }
@@ -104,8 +104,8 @@ const loadImages = () => {
     });
 };
 
-const loadUsername = () => {
-    sendGenericAjax('GET', '/getUsername', null, (data) => {
+const loadUsername = () => { debugger
+    sendGenericAjax('GET', '/getUsername', null, (data) => { debugger
         ReactDOM.render(
             <SideBar username={data.username} />, document.querySelector("#sidebar")
         );
@@ -122,7 +122,7 @@ const setup = function(csrf) {
     );
 
     ReactDOM.render(
-        <SideBar username={[]} />, document.querySelector("#sidebar")
+        <SideBar username={""} />, document.querySelector("#sidebar")
     );
 
     loadImages();
