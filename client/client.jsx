@@ -13,7 +13,7 @@
       return false;
     }
     
-    sendGenericAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize());
+    sendAjax($("#signupForm").attr("action"), $("#signupForm").serialize());
 
     return false;
     
@@ -34,7 +34,7 @@
       return false;
     }
 
-    sendGenericAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize());
+    sendAjax($("#loginForm").attr("action"), $("#loginForm").serialize());
 
     return false;
   }
