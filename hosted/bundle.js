@@ -233,7 +233,7 @@ var ImageGrid = function ImageGrid(props) {
 };
 
 var SideBar = function SideBar(props) {
-    if (props.username) {
+    if (props.username === "" || !props.username) {
         return React.createElement(
             "div",
             { className: "position-fixed btn-group-vertical" },
@@ -242,8 +242,8 @@ var SideBar = function SideBar(props) {
                 null,
                 React.createElement(
                     "a",
-                    { href: "/userPage" },
-                    props.username
+                    { href: "/signup" },
+                    "signup"
                 )
             ),
             React.createElement(
@@ -251,8 +251,8 @@ var SideBar = function SideBar(props) {
                 null,
                 React.createElement(
                     "a",
-                    { href: "/logout" },
-                    "logout"
+                    { href: "/login" },
+                    "login"
                 )
             )
         );
@@ -266,8 +266,8 @@ var SideBar = function SideBar(props) {
             null,
             React.createElement(
                 "a",
-                { href: "/signup" },
-                "signup"
+                { href: "/userPage" },
+                props.username
             )
         ),
         React.createElement(
@@ -275,8 +275,8 @@ var SideBar = function SideBar(props) {
             null,
             React.createElement(
                 "a",
-                { href: "/login" },
-                "login"
+                { href: "/logout" },
+                "logout"
             )
         )
     );
@@ -289,7 +289,9 @@ var loadImages = function loadImages() {
 };
 
 var loadUsername = function loadUsername() {
+    debugger;
     sendGenericAjax('GET', '/getUsername', null, function (data) {
+        debugger;
         ReactDOM.render(React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebar"));
     });
 };
@@ -299,7 +301,7 @@ var setup = function setup(csrf) {
 
     ReactDOM.render(React.createElement(ImageGrid, { imgs: [] }), document.querySelector("#grid"));
 
-    ReactDOM.render(React.createElement(SideBar, { username: [] }), document.querySelector("#sidebar"));
+    ReactDOM.render(React.createElement(SideBar, { username: "" }), document.querySelector("#sidebar"));
 
     loadImages();
     loadUsername();
@@ -382,3 +384,63 @@ var fileUpload = function fileUpload(action, data) {
   });
 };
 "use strict";
+
+var handleSignup = function handleSignup(e) {
+    e.preventDefault();
+
+    $(".error").fadeOut(400);
+
+    if ($("#user").val() == '' || $("#pass").val() == '' || $("#pass2").val() == '') {
+        showError("All fields are required");
+        return false;
+    }
+
+    if ($("#pass").val() !== $("#pass2").val()) {
+        showError("Passwords do not match");
+        return false;
+    }
+
+    sendAjax($("#signupForm").attr("action"), $("#signupForm").serialize());
+
+    return false;
+};
+
+var handleLogin = function handleLogin(e) {
+    e.preventDefault();
+
+    $(".error").fadeOut(400);
+
+    if ($("#user").val() == '') {
+        showError("Username is required");
+        return false;
+    }
+
+    if ($("#pass").val() == '') {
+        showError("Password is required");
+        return false;
+    }
+
+    sendAjax($("#loginForm").attr("action"), $("#loginForm").serialize());
+
+    return false;
+};
+
+var handleChangePassword = function handleChangePassword(e) {
+    e.preventDefault();
+
+    $(".error").fadeOut(400);
+
+    if ($("#currentPass").val() == '' || $("#newPass").val() == '' || $("#pass2").val() == '') {
+        showError("All fields are required");
+        return false;
+    }
+
+    if ($("#newPass").val() !== $("#pass2").val()) {
+        showError("Passwords do not match");
+        return false;
+    }
+
+    sendAjax($("#changePasswordForm").attr("action"), $("#changePasswordForm").serialize());
+
+    return false;
+};
