@@ -3,6 +3,7 @@
 const handleImg = (e) => {
     e.preventDefault();
 
+    $(".success").fadeOut(400);
     $(".error").fadeOut(400);
 
     if ($("#userImg").val() == '') {
@@ -19,14 +20,16 @@ const handleImg = (e) => {
 const Header = (props) => {
     return (
         <div className="row justify-content-center">
-            <div className="col-10">
+            <div className="col-9">
                 <header>
                     <h1 id="userTitle"><a href="/">{props.username}</a></h1>
                     <p>this is your personalized shmood page</p>
+                    <div className="alert alert-success success" role="alert">
+                        Upload successful!
+                    </div>
                 </header>
             </div>
             <div className="col-1">
-
             </div>
         </div>
     );
@@ -98,14 +101,14 @@ const SideBar = (props) => {
                             </div>
                             <div className="modal-body">
                                 <form id="imgUploadForm" name="imgUploadForm" action="/uploadImg" method="POST"
-                                    className="imgUploadForm" encType="multipart/form-data">
+                                    className="imgUploadForm" encType="multipart/form-data" onSubmit={handleImg}>
 
                                     <div className="fields">
                                         <input type="file" id="userImg" name="img" accept="image/*" />
                                     </div>
 
                                     <div className="alert alert-danger error" role="alert">
-                                        Passwords don't match
+                                        No image
                                     </div>
 
                                     <div className="modal-footer">

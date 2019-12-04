@@ -283,6 +283,13 @@ p {
     background-color: rgba(225, 122, 71, 1);
 }
 
+.success {
+    display: none;
+    font-family: 'Rubik', sans-serif;
+    color: white;
+    background-color: rgba(74, 177, 157, 1);
+}
+
 #down {
     width: 50px;
     height: 20px;

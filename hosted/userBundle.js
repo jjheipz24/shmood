@@ -5,6 +5,7 @@
 var handleImg = function handleImg(e) {
     e.preventDefault();
 
+    $(".success").fadeOut(400);
     $(".error").fadeOut(400);
 
     if ($("#userImg").val() == '') {
@@ -23,7 +24,7 @@ var Header = function Header(props) {
         { className: "row justify-content-center" },
         React.createElement(
             "div",
-            { className: "col-10" },
+            { className: "col-9" },
             React.createElement(
                 "header",
                 null,
@@ -40,6 +41,11 @@ var Header = function Header(props) {
                     "p",
                     null,
                     "this is your personalized shmood page"
+                ),
+                React.createElement(
+                    "div",
+                    { className: "alert alert-success success", role: "alert" },
+                    "Upload successful!"
                 )
             )
         ),
@@ -167,7 +173,7 @@ var SideBar = function SideBar(props) {
                         React.createElement(
                             "form",
                             { id: "imgUploadForm", name: "imgUploadForm", action: "/uploadImg", method: "POST",
-                                className: "imgUploadForm", encType: "multipart/form-data" },
+                                className: "imgUploadForm", encType: "multipart/form-data", onSubmit: handleImg },
                             React.createElement(
                                 "div",
                                 { className: "fields" },
@@ -176,7 +182,7 @@ var SideBar = function SideBar(props) {
                             React.createElement(
                                 "div",
                                 { className: "alert alert-danger error", role: "alert" },
-                                "Passwords don't match"
+                                "No image"
                             ),
                             React.createElement(
                                 "div",

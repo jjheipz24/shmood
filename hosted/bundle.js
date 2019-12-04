@@ -54,7 +54,10 @@ var fileUpload = function fileUpload(action, data) {
     contentType: false,
     success: function success(result, status, xhr) {
       $(".error").fadeOut(400);
+      $(".success").fadeIn(400);
+      $(".success").delay(5000).fadeOut();
 
+      console.log(result.redirect);
       window.location = result.redirect;
     },
     error: function error(xhr, status, _error3) {
