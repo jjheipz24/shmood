@@ -92,76 +92,14 @@ an array of their img paths. Then, split that array into 3 parts to pass
 into the 3 columns in the view. Also, pass in the username and csrf token\
 
 Also, ad placeholders are added on home page only*/
-const homePage = (req, res) => {
-  Img.ImgModel.findRandom((err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-
-    const allImages = [];
-    docs.forEach((doc) => {
-      const imagePath = `./retrieve?name=${doc.name}`;
-      allImages.push(imagePath);
-    });
-
-    // This inserts ads into the images array every 5 images
-    for (let i = 0; i < allImages.length; i += 5) {
-      allImages.splice(i, 0, './assets/img/ad.png');
-    }
-
-    const categories = [];
-
-    // Split array
-    // https://ourcodeworld.com/articles/read/278/how-to-split-an-array-into-chunks-of-the-same-size-easily-in-javascript
-    for (let i = 0; i < allImages.length; i += allImages.length / 3) {
-      categories.push(allImages.slice(i, i + allImages.length / 3));
-    }
-
-    return res.render('app', {
-      csrfToken: req.csrfToken,
-      name: req.session.account,
-      imgs: categories[1],
-      imgs2: categories[0],
-      imgs3: categories[2],
-    });
-  });
-};
+const homePage = (req, res) => res.render('app');
 
 /* Render the user page
 
 Find the images uploaded by the user and create
 an array of their img paths. Then, split that array into 3 parts to pass
 into the 3 columns in the view. Also, pass in the username and csrf token */
-const userPage = (req, res) => {
-  Img.ImgModel.findByUser(req.session.account._id, (err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-
-    const allImages = [];
-    docs.forEach((doc) => {
-      const imagePath = `./retrieve?name=${doc.name}`;
-      allImages.push(imagePath);
-    });
-
-    const categories = [];
-
-    // split array
-    for (let i = 0; i < allImages.length; i += allImages.length / 3) {
-      categories.push(allImages.slice(i, i + allImages.length / 3));
-    }
-
-    return res.render('user', {
-      csrfToken: req.csrfToken,
-      name: req.session.account.username,
-      imgs: categories[1],
-      imgs2: categories[0],
-      imgs3: categories[2],
-    });
-  });
-};
+const userPage = (req, res) => res.render('user');
 
 const getHomeImg = (request, response) => {
   const res = response;
