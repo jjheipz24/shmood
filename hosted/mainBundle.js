@@ -155,9 +155,7 @@ var loadImages = function loadImages() {
 };
 
 var loadUsername = function loadUsername() {
-    debugger;
     sendGenericAjax('GET', '/getUsername', null, function (data) {
-        debugger;
         ReactDOM.render(React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebar"));
     });
 };

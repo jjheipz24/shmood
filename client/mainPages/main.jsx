@@ -104,8 +104,8 @@ const loadImages = () => {
     });
 };
 
-const loadUsername = () => { debugger
-    sendGenericAjax('GET', '/getUsername', null, (data) => { debugger
+const loadUsername = () => { 
+    sendGenericAjax('GET', '/getUsername', null, (data) => { 
         ReactDOM.render(
             <SideBar username={data.username} />, document.querySelector("#sidebar")
         );
