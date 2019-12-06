@@ -34,7 +34,7 @@ const uploadImage = (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
   }
-  
+
   if (Array.isArray(req.files.img)) {
     /* if multiple files are uploaded, this will run through each and save them */
     req.files.img.forEach(file => {
@@ -203,7 +203,7 @@ const clearAll = (req, res) => {
       });
     }
 
-    return res.json({
+    return res.status(200).json({
       message: "Success"
     });
   });
