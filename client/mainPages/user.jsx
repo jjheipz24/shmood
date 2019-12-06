@@ -216,6 +216,10 @@ const SideBar = (props) => {
 
                                     <p id="explain">This cannot be undone</p>
 
+                                    <div className="alert alert-danger error" role="alert">
+                                       An error has occured
+                                    </div>
+
                                     <div className="modal-footer">
                                         <input id="deleteCsrf" type="hidden" name="_csrf" value={props.token} />
                                         <button className="btn btn-secondary rounded-pill" id="cancelButton"
