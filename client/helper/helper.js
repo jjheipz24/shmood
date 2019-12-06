@@ -66,7 +66,7 @@ const showError = (message) => {
       }
     });
   }
-
+//handles clear board request
   const clearBoard = (method, action, data, callback) => {
     console.log(data);
     $.ajax({
