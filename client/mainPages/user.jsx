@@ -36,14 +36,14 @@ const handlePChange = (e) => {
     return false;
 }
 
+//Handles the request to clear the board
+//redirects the user back to user page
 const handleDelete = (e) => {
     e.preventDefault();
     
     console.log($("#deleteForm").serialize());
     clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function (result) {
-        // setInterval(function () {
-        //     window.location = result.redirect;
-        //   }, 1000);
+
         window.location = result.redirect;
         loadImages($("#deleteCsrf").val());
     });

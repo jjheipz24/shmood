@@ -1,3 +1,4 @@
+//Implementation of the 404 error page
 const NotFound = () => {
     return (
         <div class="container" fluid>
