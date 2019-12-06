@@ -195,6 +195,11 @@ var SideBar = function SideBar(props) {
                             ),
                             React.createElement(
                                 "div",
+                                { className: "alert alert-success success", role: "alert" },
+                                "Upload successful!"
+                            ),
+                            React.createElement(
+                                "div",
                                 { className: "alert alert-danger error", role: "alert" },
                                 "No image"
                             ),

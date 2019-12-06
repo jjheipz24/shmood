@@ -43,12 +43,10 @@ const Header = (props) => {
                 <header>
                     <h1 id="userTitle"><a href="/">{props.username}</a></h1>
                     <p>this is your personalized shmood page</p>
-                    <div className="alert alert-success success" role="alert">
-                        Upload successful!
-                    </div>
                 </header>
             </div>
             <div className="col-1">
+
             </div>
         </div>
     );
@@ -126,6 +124,9 @@ const SideBar = (props) => {
                                         <input type="file" id="userImg" name="img" accept="image/*" />
                                     </div>
 
+                                    <div className="alert alert-success success" role="alert">
+                                        Upload successful!
+                                    </div>
                                     <div className="alert alert-danger error" role="alert">
                                         No image
                                     </div>
