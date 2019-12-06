@@ -66,7 +66,7 @@ const showError = (message) => {
     });
   }
 
-  const clearAll = (action, data) => {
+  const clearBoard = (action, data) => {
     $.ajax({
       cache: false,
       type: "DELETE",

@@ -39,7 +39,7 @@ const handlePChange = (e) => {
 const handleDelete = (e) => {
     e.preventDefault();
     
-    clearAll('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
         loadImages($("#deleteCsrf").val());
     });
 
@@ -212,7 +212,7 @@ const SideBar = (props) => {
                             </div>
                             <div className="modal-body">
                                 <form id="deleteForm" name="deleteForm" action="/clear" method="DELETE"
-                                    className="deleteForm" encType="multipart/form-data" onSubmit={handleDelete}>
+                                    className="deleteForm" onSubmit={handleDelete}>
 
                                     <p id="explain">This cannot be undone</p>
 

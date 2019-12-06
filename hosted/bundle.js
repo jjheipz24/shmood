@@ -68,7 +68,7 @@ var fileUpload = function fileUpload(action, data) {
   });
 };
 
-var clearAll = function clearAll(action, data) {
+var clearBoard = function clearBoard(action, data) {
   $.ajax({
     cache: false,
     type: "DELETE",

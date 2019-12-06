@@ -40,7 +40,7 @@ var handlePChange = function handlePChange(e) {
 var handleDelete = function handleDelete(e) {
     e.preventDefault();
 
-    clearAll('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
         loadImages($("#deleteCsrf").val());
     });
 
@@ -362,7 +362,7 @@ var SideBar = function SideBar(props) {
                         React.createElement(
                             "form",
                             { id: "deleteForm", name: "deleteForm", action: "/clear", method: "DELETE",
-                                className: "deleteForm", encType: "multipart/form-data", onSubmit: handleDelete },
+                                className: "deleteForm", onSubmit: handleDelete },
                             React.createElement(
                                 "p",
                                 { id: "explain" },
