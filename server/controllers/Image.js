@@ -197,17 +197,17 @@ const getUsername = (request, response) => {
 
 const clearAll = (req, res) => {
   Image.ImgModel.deleteByOwner(req.session.account._id, (err) => {
-    if(err){
+    if (err) {
       return res.status(400).json({
-        error: "An error occurred",
+        error: 'An error occurred',
       });
     }
 
     return res.status(200).json({
-      message: "Success"
+      message: 'Success',
     });
   });
-}
+};
 
 /* Exports */
 module.exports.uploadImage = uploadImage;

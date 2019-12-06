@@ -370,6 +370,11 @@ var SideBar = function SideBar(props) {
                             ),
                             React.createElement(
                                 "div",
+                                { className: "alert alert-danger error", role: "alert" },
+                                "An error has occured"
+                            ),
+                            React.createElement(
+                                "div",
                                 { className: "modal-footer" },
                                 React.createElement("input", { id: "deleteCsrf", type: "hidden", name: "_csrf", value: props.token }),
                                 React.createElement(
