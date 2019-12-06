@@ -195,6 +195,20 @@ const getUsername = (request, response) => {
   return res.json({ username: '' });
 };
 
+const clearAll = (req, res) => {
+  Image.ImgModel.deleteByOwner(req.session.account._id, (err) => {
+    if(err){
+      return res.status(400).json({
+        error: "An error occurred",
+      });
+    }
+
+    return res.json({
+      message: "Success"
+    });
+  });
+}
+
 /* Exports */
 module.exports.uploadImage = uploadImage;
 module.exports.homePage = homePage;
@@ -205,3 +219,5 @@ module.exports.retrieve = retrieveImage;
 module.exports.getHomeImg = getHomeImg;
 module.exports.getUserImg = getUserImg;
 module.exports.getUsername = getUsername;
+
+module.exports.clearAll = clearAll;
