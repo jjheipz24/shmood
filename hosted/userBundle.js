@@ -42,9 +42,10 @@ var handleDelete = function handleDelete(e) {
 
     console.log($("#deleteForm").serialize());
     clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function (result) {
-        setInterval(function () {
-            window.location = result.redirect;
-        }, 1000);
+        // setInterval(function () {
+        //     window.location = result.redirect;
+        //   }, 1000);
+        window.location = result.redirect;
         loadImages($("#deleteCsrf").val());
     });
 
@@ -348,7 +349,7 @@ var SideBar = function SideBar(props) {
                         React.createElement(
                             "h5",
                             { className: "modal-title", id: "deleteFormTitle" },
-                            "Are you sure you want to clear your board?"
+                            "Are you sure?"
                         ),
                         React.createElement(
                             "button",
@@ -369,7 +370,7 @@ var SideBar = function SideBar(props) {
                                 className: "deleteForm", onSubmit: handleDelete },
                             React.createElement(
                                 "p",
-                                { id: "explain" },
+                                { id: "deleteText" },
                                 "This cannot be undone"
                             ),
                             React.createElement(
