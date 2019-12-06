@@ -14,38 +14,41 @@ const uploadImage = (req, res) => {
     return res.status(400).json({ error: 'No files were uploaded' });
   }
 
-
-  if (req.files.img.truncated) {
-    return res.status(400).json({
-      error: 'File is too large',
+  /*if multiple files are uploaded, this will run through each and save them
+    Also works if it is a single image */
+  req.files.img.forEach(file => {
+    if (file.truncated) {
+      return res.status(400).json({
+        error: 'File is too large',
+      });
+    }
+  
+    const imgFile = {
+      name: file.name,
+      data: file.data,
+      size: file.size,
+      mimetype: file.mimetype,
+      user: req.session.account._id,
+    };
+  
+    const imageModel = new Img.ImgModel(imgFile);
+  
+    // Save the image to mongo
+    const savePromise = imageModel.save();
+  
+    // redirect after finished saving
+    savePromise.then(() => res.status(201).json({
+      redirect: '/userPage',
+    }));
+  
+    // If there is an error while saving, let the user know
+    savePromise.catch((error) => {
+      res.json({ error });
     });
-  }
-
-  const imgFile = {
-    name: req.files.img.name,
-    data: req.files.img.data,
-    size: req.files.img.size,
-    mimetype: req.files.img.mimetype,
-    user: req.session.account._id,
-  };
-
-  const imageModel = new Img.ImgModel(imgFile);
-
-  // Save the image to mongo
-  const savePromise = imageModel.save();
-
-  // redirect after finished saving
-  savePromise.then(() => res.status(201).json({
-    redirect: '/userPage',
-  }));
-
-  // If there is an error while saving, let the user know
-  savePromise.catch((error) => {
-    res.json({ error });
+  
+    // Return out
+    return savePromise;
   });
-
-  // Return out
-  return savePromise;
 };
 
 /* Handles image retrieval

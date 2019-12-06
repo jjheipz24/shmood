@@ -120,8 +120,9 @@ const SideBar = (props) => {
                                 <form id="imgUploadForm" name="imgUploadForm" action="/uploadImg" method="POST"
                                     className="imgUploadForm" encType="multipart/form-data" onSubmit={handleImg}>
 
+                                    <p id="explain">Use shift or ctrl to select multiple files to upload</p>
                                     <div className="fields">
-                                        <input type="file" id="userImg" name="img" accept="image/*" />
+                                        <input type="file" id="userImg" name="img" accept="image/*" multiple />
                                     </div>
 
                                     <div className="alert alert-success success" role="alert">
