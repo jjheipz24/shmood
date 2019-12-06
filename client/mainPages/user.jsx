@@ -39,7 +39,7 @@ const handlePChange = (e) => {
 const handleDelete = (e) => {
     e.preventDefault();
     
-    sendGenericAjax('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    clearAll('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
         loadImages($("#deleteCsrf").val());
     });
 
@@ -114,6 +114,7 @@ const SideBar = (props) => {
                     <button><a href="/userPage">{props.username}</a></button>
                     <button data-toggle="modal" data-target="#imgUpload">upload</button>
                     <button data-toggle="modal" data-target="#changePassword">change password</button>
+                    <button data-toggle="modal" data-target="#clear">clear board</button>
                     <button><a href="/logout">logout</a></button>
                 </div>
 
@@ -193,6 +194,34 @@ const SideBar = (props) => {
                                             data-dismiss="modal">Cancel</button>
                                         <button className="btn btn-secondary rounded-pill" id="changePasswordButton"
                                             type="submit">Change Password</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal fade" id="clear" tabIndex="-1" role="dialog">
+                    <div className="modal-dialog modal-dialog-centered" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h5 className="modal-title" id="deleteFormTitle">Are you sure you want to clear your board?</h5>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div className="modal-body">
+                                <form id="deleteForm" name="deleteForm" action="/clear" method="DELETE"
+                                    className="deleteForm" encType="multipart/form-data" onSubmit={handleDelete}>
+
+                                    <p id="explain">This cannot be undone</p>
+
+                                    <div className="modal-footer">
+                                        <input id="deleteCsrf" type="hidden" name="_csrf" value={props.token} />
+                                        <button className="btn btn-secondary rounded-pill" id="cancelButton"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button className="btn btn-secondary rounded-pill" id="clearButton"
+                                            type="submit">Clear</button>
                                     </div>
                                 </form>
                             </div>

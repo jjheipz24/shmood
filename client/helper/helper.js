@@ -65,3 +65,25 @@ const showError = (message) => {
       }
     });
   }
+
+  const clearAll = (action, data) => {
+    $.ajax({
+      cache: false,
+      type: "DELETE",
+      url: action,
+      data: data,
+      processData: false,
+      contentType: false,
+      success: (result, status, xhr) => {
+    
+        setInterval(function () {
+          window.location = result.redirect;
+        }, 400);
+      },
+      error: (xhr, status, error) => {
+        const messageObj = JSON.parse(xhr.responseText);
+  
+        showError(messageObj.error);
+      }
+    });
+  }

@@ -37,6 +37,16 @@ var handlePChange = function handlePChange(e) {
     return false;
 };
 
+var handleDelete = function handleDelete(e) {
+    e.preventDefault();
+
+    clearAll('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+        loadImages($("#deleteCsrf").val());
+    });
+
+    return false;
+};
+
 var Header = function Header(props) {
     return React.createElement(
         "div",
@@ -143,6 +153,11 @@ var SideBar = function SideBar(props) {
                 "button",
                 { "data-toggle": "modal", "data-target": "#changePassword" },
                 "change password"
+            ),
+            React.createElement(
+                "button",
+                { "data-toggle": "modal", "data-target": "#clear" },
+                "clear board"
             ),
             React.createElement(
                 "button",
@@ -307,6 +322,67 @@ var SideBar = function SideBar(props) {
                                     { className: "btn btn-secondary rounded-pill", id: "changePasswordButton",
                                         type: "submit" },
                                     "Change Password"
+                                )
+                            )
+                        )
+                    )
+                )
+            )
+        ),
+        React.createElement(
+            "div",
+            { className: "modal fade", id: "clear", tabIndex: "-1", role: "dialog" },
+            React.createElement(
+                "div",
+                { className: "modal-dialog modal-dialog-centered", role: "document" },
+                React.createElement(
+                    "div",
+                    { className: "modal-content" },
+                    React.createElement(
+                        "div",
+                        { className: "modal-header" },
+                        React.createElement(
+                            "h5",
+                            { className: "modal-title", id: "deleteFormTitle" },
+                            "Are you sure you want to clear your board?"
+                        ),
+                        React.createElement(
+                            "button",
+                            { type: "button", className: "close", "data-dismiss": "modal", "aria-label": "Close" },
+                            React.createElement(
+                                "span",
+                                { "aria-hidden": "true" },
+                                "\xD7"
+                            )
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "modal-body" },
+                        React.createElement(
+                            "form",
+                            { id: "deleteForm", name: "deleteForm", action: "/clear", method: "DELETE",
+                                className: "deleteForm", encType: "multipart/form-data", onSubmit: handleDelete },
+                            React.createElement(
+                                "p",
+                                { id: "explain" },
+                                "This cannot be undone"
+                            ),
+                            React.createElement(
+                                "div",
+                                { className: "modal-footer" },
+                                React.createElement("input", { id: "deleteCsrf", type: "hidden", name: "_csrf", value: props.token }),
+                                React.createElement(
+                                    "button",
+                                    { className: "btn btn-secondary rounded-pill", id: "cancelButton",
+                                        "data-dismiss": "modal" },
+                                    "Cancel"
+                                ),
+                                React.createElement(
+                                    "button",
+                                    { className: "btn btn-secondary rounded-pill", id: "clearButton",
+                                        type: "submit" },
+                                    "Clear"
                                 )
                             )
                         )

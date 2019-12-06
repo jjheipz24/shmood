@@ -67,3 +67,25 @@ var fileUpload = function fileUpload(action, data) {
     }
   });
 };
+
+var clearAll = function clearAll(action, data) {
+  $.ajax({
+    cache: false,
+    type: "DELETE",
+    url: action,
+    data: data,
+    processData: false,
+    contentType: false,
+    success: function success(result, status, xhr) {
+
+      setInterval(function () {
+        window.location = result.redirect;
+      }, 400);
+    },
+    error: function error(xhr, status, _error4) {
+      var messageObj = JSON.parse(xhr.responseText);
+
+      showError(messageObj.error);
+    }
+  });
+};
