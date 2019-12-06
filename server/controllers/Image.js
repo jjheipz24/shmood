@@ -2,6 +2,27 @@
 const models = require('../models');
 const Img = models.Images;
 
+/* resuable image save helper function,
+takes in data and returns the created model*/
+const imageSaveHelper = (req, res, imgToSave) => {
+  if (imgToSave.truncated) {
+    return res.status(400).json({
+      error: 'File is too large',
+    });
+  }
+
+  const imgFile = {
+    name: imgToSave.name,
+    data: imgToSave.data,
+    size: imgToSave.size,
+    mimetype: imgToSave.mimetype,
+    user: req.session.account._id,
+  };
+
+  const imageModel = new Img.ImgModel(imgFile);
+  return imageModel;
+};
+
 /* Handles image upload via express-fileupload
 Checks if files were sent, and makes sure they aren't too large
 
@@ -13,42 +34,42 @@ const uploadImage = (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
   }
+  
+  if (Array.isArray(req.files.img)) {
+    /* if multiple files are uploaded, this will run through each and save them */
+    req.files.img.forEach(file => {
+      // Save the image to mongo
+      const savePromise = imageSaveHelper(req, res, file).save();
 
-  /*if multiple files are uploaded, this will run through each and save them
-    Also works if it is a single image */
-  req.files.img.forEach(file => {
-    if (file.truncated) {
-      return res.status(400).json({
-        error: 'File is too large',
+      // redirect after finished saving
+      savePromise.then(() => res.status(201).json({
+        redirect: '/userPage',
+      }));
+
+      // If there is an error while saving, let the user know
+      savePromise.catch((error) => {
+        res.json({ error });
       });
-    }
-  
-    const imgFile = {
-      name: file.name,
-      data: file.data,
-      size: file.size,
-      mimetype: file.mimetype,
-      user: req.session.account._id,
-    };
-  
-    const imageModel = new Img.ImgModel(imgFile);
-  
-    // Save the image to mongo
-    const savePromise = imageModel.save();
-  
-    // redirect after finished saving
-    savePromise.then(() => res.status(201).json({
-      redirect: '/userPage',
-    }));
-  
-    // If there is an error while saving, let the user know
-    savePromise.catch((error) => {
-      res.json({ error });
+
+      // Return out
+      return savePromise;
     });
-  
-    // Return out
-    return savePromise;
+  }
+
+  const savePromise = imageSaveHelper(req, res, req.files.img).save();
+
+  // redirect after finished saving
+  savePromise.then(() => res.status(201).json({
+    redirect: '/userPage',
+  }));
+
+  // If there is an error while saving, let the user know
+  savePromise.catch((error) => {
+    res.json({ error });
   });
+
+  // Return out
+  return savePromise;
 };
 
 /* Handles image retrieval
