@@ -1,6 +1,8 @@
 /* Get the mongoose */
 const mongoose = require('mongoose');
 
+const convertId = mongoose.Types.ObjectId;
+
 mongoose.Promise = global.Promise;
 
 /* Convert ID method and create empty ImgModel */
@@ -52,6 +54,15 @@ ImageSchema.statics.findRandom = (callback) => ImgModel.find()
   .select('name data size mimetype user')
   .limit(36)
   .exec(callback);
+
+
+ImageSchema.statics.deleteByOwner = (ownerId, callback) => {  
+  const search = {
+    user: convertId(ownerId),
+  };
+
+return ImgModel.deleteMany(search, callback);
+};
 
 ImgModel = mongoose.model('Images', ImageSchema);
 

@@ -39,7 +39,11 @@ const handlePChange = (e) => {
 const handleDelete = (e) => {
     e.preventDefault();
     
-    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    console.log($("#deleteForm").serialize());
+    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function (result) {
+        setInterval(function () {
+            window.location = result.redirect;
+          }, 1000);
         loadImages($("#deleteCsrf").val());
     });
 
@@ -244,7 +248,7 @@ const loadImages = () => {
     });
 };
 
-const loadSidebar = () => { debugger
+const loadSidebar = () => { 
     sendGenericAjax('GET', '/getUsername', null, (data) => {
         ReactDOM.render(
             <SideBar username={data.username} />, document.querySelector("#sidebarU")
@@ -252,7 +256,7 @@ const loadSidebar = () => { debugger
     });
 }
 
-const loadHeader = () => { debugger
+const loadHeader = () => { 
     sendGenericAjax('GET', '/getUsername', null, (data) => {
         ReactDOM.render(
             <Header username={data.username} />, document.querySelector("#headerU")

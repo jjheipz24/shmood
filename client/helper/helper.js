@@ -6,6 +6,7 @@ const showError = (message) => {
   
   //handles requests
   const sendAjax = (action, data) => {
+    console.log(data);
     $.ajax({
       cache: false,
       type: "POST",
@@ -66,20 +67,15 @@ const showError = (message) => {
     });
   }
 
-  const clearBoard = (action, data) => {
+  const clearBoard = (method, action, data, callback) => {
+    console.log(data);
     $.ajax({
       cache: false,
-      type: "DELETE",
+      type: method,
       url: action,
       data: data,
-      processData: false,
-      contentType: false,
-      success: (result, status, xhr) => {
-    
-        setInterval(function () {
-          window.location = result.redirect;
-        }, 400);
-      },
+      dataType: "json",
+      success: callback,
       error: (xhr, status, error) => {
         const messageObj = JSON.parse(xhr.responseText);
   

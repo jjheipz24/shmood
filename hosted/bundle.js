@@ -8,6 +8,7 @@ var showError = function showError(message) {
 
 //handles requests
 var sendAjax = function sendAjax(action, data) {
+  console.log(data);
   $.ajax({
     cache: false,
     type: "POST",
@@ -68,20 +69,15 @@ var fileUpload = function fileUpload(action, data) {
   });
 };
 
-var clearBoard = function clearBoard(action, data) {
+var clearBoard = function clearBoard(method, action, data, callback) {
+  console.log(data);
   $.ajax({
     cache: false,
-    type: "DELETE",
+    type: method,
     url: action,
     data: data,
-    processData: false,
-    contentType: false,
-    success: function success(result, status, xhr) {
-
-      setInterval(function () {
-        window.location = result.redirect;
-      }, 400);
-    },
+    dataType: "json",
+    success: callback,
     error: function error(xhr, status, _error4) {
       var messageObj = JSON.parse(xhr.responseText);
 

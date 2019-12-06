@@ -23,7 +23,7 @@ const handleSignup = (e) => {
       return (
         <form id="signupForm" name="signupForm" onSubmit={handleSignup} action="/signup" method="POST" className="mainForm">
           <div className="greeting">
-            <img className="icon" src="./assets/img/largeLogo.png" alt="logo for Shmood" />>
+            <img className="icon" src="./assets/img/largeLogo.png" alt="logo for Shmood" />
             <h1>WELCOME</h1>
           </div>
 

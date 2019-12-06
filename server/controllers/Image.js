@@ -196,7 +196,7 @@ const getUsername = (request, response) => {
 };
 
 const clearAll = (req, res) => {
-  Image.ImgModel.deleteByOwner(req.session.account._id, (err) => {
+  Img.ImgModel.deleteByOwner(req.session.account._id, (err) => {
     if (err) {
       return res.status(400).json({
         error: 'An error occurred',
@@ -205,6 +205,7 @@ const clearAll = (req, res) => {
 
     return res.status(200).json({
       message: 'Success',
+      redirect: '/userPage'
     });
   });
 };

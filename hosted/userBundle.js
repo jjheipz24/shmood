@@ -40,7 +40,11 @@ var handlePChange = function handlePChange(e) {
 var handleDelete = function handleDelete(e) {
     e.preventDefault();
 
-    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    console.log($("#deleteForm").serialize());
+    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function (result) {
+        setInterval(function () {
+            window.location = result.redirect;
+        }, 1000);
         loadImages($("#deleteCsrf").val());
     });
 
@@ -405,14 +409,12 @@ var loadImages = function loadImages() {
 };
 
 var loadSidebar = function loadSidebar() {
-    debugger;
     sendGenericAjax('GET', '/getUsername', null, function (data) {
         ReactDOM.render(React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebarU"));
     });
 };
 
 var loadHeader = function loadHeader() {
-    debugger;
     sendGenericAjax('GET', '/getUsername', null, function (data) {
         ReactDOM.render(React.createElement(Header, { username: data.username }), document.querySelector("#headerU"));
     });
