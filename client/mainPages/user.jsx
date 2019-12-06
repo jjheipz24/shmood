@@ -36,6 +36,16 @@ const handlePChange = (e) => {
     return false;
 }
 
+const handleDelete = (e) => {
+    e.preventDefault();
+    
+    sendGenericAjax('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+        loadImages($("#deleteCsrf").val());
+    });
+
+    return false;
+}
+
 const Header = (props) => {
     return (
         <div className="row justify-content-center">

@@ -23,6 +23,8 @@ const router = (app) => {
 
   // https://stackoverflow.com/questions/6528876/how-to-redirect-404-errors-to-a-page-in-expressjs
   app.get('/*', controllers.Account.errorPage);
+
+  app.delete('/cleared', mid.requiresLogin, controllers.Image.clearAll);
 };
 
 module.exports = router;
