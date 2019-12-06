@@ -5,7 +5,6 @@
 var handleImg = function handleImg(e) {
     e.preventDefault();
 
-    $(".success").fadeOut(400);
     $(".error").fadeOut(400);
 
     if ($("#userImg").val() == '') {
@@ -14,6 +13,26 @@ var handleImg = function handleImg(e) {
     }
 
     fileUpload($("#imgUploadForm").attr("action"), new FormData($("#imgUploadForm")[0]));
+
+    return false;
+};
+
+var handlePChange = function handlePChange(e) {
+    e.preventDefault();
+
+    $(".error").fadeOut(400);
+
+    if ($("#currentPass").val() == '' || $("#newPass").val() == '' || $("#pass2").val() == '') {
+        showError("All fields are required");
+        return false;
+    }
+
+    if ($("#newPass").val() !== $("#pass2").val()) {
+        showError("Passwords do not match");
+        return false;
+    }
+
+    sendAjax($("#changePasswordForm").attr("action"), $("#changePasswordForm").serialize());
 
     return false;
 };
@@ -41,11 +60,6 @@ var Header = function Header(props) {
                     "p",
                     null,
                     "this is your personalized shmood page"
-                ),
-                React.createElement(
-                    "div",
-                    { className: "alert alert-success success", role: "alert" },
-                    "Upload successful!"
                 )
             )
         ),
@@ -240,7 +254,7 @@ var SideBar = function SideBar(props) {
                         React.createElement(
                             "form",
                             { id: "changePasswordForm", name: "changePasswordForm", action: "/changePassword",
-                                method: "POST", className: "changePasswordForm" },
+                                method: "POST", className: "changePasswordForm", onSubmit: handlePChange },
                             React.createElement(
                                 "div",
                                 { className: "fields" },

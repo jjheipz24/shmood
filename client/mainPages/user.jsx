@@ -3,7 +3,6 @@
 const handleImg = (e) => {
     e.preventDefault();
 
-    $(".success").fadeOut(400);
     $(".error").fadeOut(400);
 
     if ($("#userImg").val() == '') {
@@ -16,6 +15,26 @@ const handleImg = (e) => {
 
     return false;
 };
+
+const handlePChange = (e) => {
+    e.preventDefault();
+
+    $(".error").fadeOut(400);
+
+    if ($("#currentPass").val() == '' || $("#newPass").val() == '' || $("#pass2").val() == '') {
+        showError("All fields are required");
+        return false;
+    }
+
+    if ($("#newPass").val() !== $("#pass2").val()) {
+        showError("Passwords do not match")
+        return false;
+    }
+
+    sendAjax($("#changePasswordForm").attr("action"), $("#changePasswordForm").serialize());
+
+    return false;
+}
 
 const Header = (props) => {
     return (
@@ -136,7 +155,7 @@ const SideBar = (props) => {
                             </div>
                             <div className="modal-body">
                                 <form id="changePasswordForm" name="changePasswordForm" action="/changePassword"
-                                    method="POST" className="changePasswordForm">
+                                    method="POST" className="changePasswordForm" onSubmit={handlePChange}>
                                     <div className="fields">
                                         <div className="form-group col-xs-4">
                                             <input className="field" id="currentPass" type="text" name="currentPass"
