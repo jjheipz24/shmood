@@ -54,11 +54,11 @@ var fileUpload = function fileUpload(action, data) {
     contentType: false,
     success: function success(result, status, xhr) {
       $(".error").fadeOut(400);
-      $(".success").fadeIn(20);
+      $(".success").fadeIn(200);
 
       setInterval(function () {
         window.location = result.redirect;
-      }, 2000);
+      }, 1200);
     },
     error: function error(xhr, status, _error3) {
       var messageObj = JSON.parse(xhr.responseText);

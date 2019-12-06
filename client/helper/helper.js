@@ -52,11 +52,11 @@ const showError = (message) => {
       contentType: false,
       success: (result, status, xhr) => {
         $(".error").fadeOut(400);
-        $(".success").fadeIn(50);
+        $(".success").fadeIn(200);
   
         setInterval(function () {
           window.location = result.redirect;
-        }, 2000);
+        }, 1200);
       },
       error: (xhr, status, error) => {
         const messageObj = JSON.parse(xhr.responseText);
