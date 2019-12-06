@@ -30,6 +30,9 @@ File data is then saved to the image schema and saved to the database
 under the current logged in user
 https://github.com/AustinWilloughby/SimpleNodeFileUpload*/
 const uploadImage = (req, res) => {
+  // hold all promises
+  const promises = [];
+
   // If there are no files, return an error
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({ error: 'No files were uploaded' });
@@ -38,38 +41,28 @@ const uploadImage = (req, res) => {
   if (Array.isArray(req.files.img)) {
     /* if multiple files are uploaded, this will run through each and save them */
     req.files.img.forEach(file => {
-      // Save the image to mongo
-      const savePromise = imageSaveHelper(req, res, file).save();
-
-      // redirect after finished saving
-      savePromise.then(() => res.status(201).json({
-        redirect: '/userPage',
-      }));
-
-      // If there is an error while saving, let the user know
-      savePromise.catch((error) => {
-        res.json({ error });
-      });
-
-      // Return out
-      return savePromise;
+      promises.push(
+        // Save the image to mongo
+        imageSaveHelper(req, res, file).save()
+      );
     });
+  } else {
+    promises.push(
+      imageSaveHelper(req, res, req.files.img).save()
+    );
   }
 
-  const savePromise = imageSaveHelper(req, res, req.files.img).save();
-
+  return Promise.all(promises)
   // redirect after finished saving
-  savePromise.then(() => res.status(201).json({
-    redirect: '/userPage',
-  }));
-
+  .then(() => {
+    res.status(201).json({
+      redirect: '/userPage',
+    });
+  })
   // If there is an error while saving, let the user know
-  savePromise.catch((error) => {
+  .catch((error) => {
     res.json({ error });
   });
-
-  // Return out
-  return savePromise;
 };
 
 /* Handles image retrieval
