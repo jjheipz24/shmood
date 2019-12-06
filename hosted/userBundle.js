@@ -189,9 +189,14 @@ var SideBar = function SideBar(props) {
                             { id: "imgUploadForm", name: "imgUploadForm", action: "/uploadImg", method: "POST",
                                 className: "imgUploadForm", encType: "multipart/form-data", onSubmit: handleImg },
                             React.createElement(
+                                "p",
+                                { id: "explain" },
+                                "Use shift or ctrl to select multiple files to upload"
+                            ),
+                            React.createElement(
                                 "div",
                                 { className: "fields" },
-                                React.createElement("input", { type: "file", id: "userImg", name: "img", accept: "image/*" })
+                                React.createElement("input", { type: "file", id: "userImg", name: "img", accept: "image/*", multiple: true })
                             ),
                             React.createElement(
                                 "div",

@@ -295,6 +295,12 @@ p {
     height: 20px;
 }
 
+#explain {
+    margin: 0 auto;
+    color: gray;
+    text-align: center;
+}
+
 @keyframes rainbow {
     0% {
         background-position: left
