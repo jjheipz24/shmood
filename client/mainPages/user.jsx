@@ -39,7 +39,12 @@ const handlePChange = (e) => {
 const handleDelete = (e) => {
     e.preventDefault();
     
-    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function () {
+    console.log($("#deleteForm").serialize());
+    clearBoard('DELETE', $('#deleteForm').attr("action"), $("#deleteForm").serialize(), function (result) {
+        // setInterval(function () {
+        //     window.location = result.redirect;
+        //   }, 1000);
+        window.location = result.redirect;
         loadImages($("#deleteCsrf").val());
     });
 
@@ -205,7 +210,7 @@ const SideBar = (props) => {
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <h5 className="modal-title" id="deleteFormTitle">Are you sure you want to clear your board?</h5>
+                                <h5 className="modal-title" id="deleteFormTitle">Are you sure?</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -214,7 +219,7 @@ const SideBar = (props) => {
                                 <form id="deleteForm" name="deleteForm" action="/clear" method="DELETE"
                                     className="deleteForm" onSubmit={handleDelete}>
 
-                                    <p id="explain">This cannot be undone</p>
+                                    <p id="deleteText">This cannot be undone</p>
 
                                     <div className="alert alert-danger error" role="alert">
                                        An error has occured
@@ -244,7 +249,7 @@ const loadImages = () => {
     });
 };
 
-const loadSidebar = () => { debugger
+const loadSidebar = () => { 
     sendGenericAjax('GET', '/getUsername', null, (data) => {
         ReactDOM.render(
             <SideBar username={data.username} />, document.querySelector("#sidebarU")
@@ -252,7 +257,7 @@ const loadSidebar = () => { debugger
     });
 }
 
-const loadHeader = () => { debugger
+const loadHeader = () => { 
     sendGenericAjax('GET', '/getUsername', null, (data) => {
         ReactDOM.render(
             <Header username={data.username} />, document.querySelector("#headerU")

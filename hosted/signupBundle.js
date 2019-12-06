@@ -28,7 +28,6 @@ var SignupForm = function SignupForm(props) {
       "div",
       { className: "greeting" },
       React.createElement("img", { className: "icon", src: "./assets/img/largeLogo.png", alt: "logo for Shmood" }),
-      ">",
       React.createElement(
         "h1",
         null,
