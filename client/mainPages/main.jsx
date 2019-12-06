@@ -16,6 +16,7 @@ const handleImg = (e) => {
     return false;
 };
 
+//JSX for the header of the homepage
 const Header = () => {
     return (
         <div className="row justify-content-center">
@@ -33,6 +34,7 @@ const Header = () => {
     );
 }
 
+//JSX that renders the image grid, takes in the images gotten from below
 const ImageGrid = (props) => {
     console.dir(props.imgs);
     if(props.imgs.length === 0) {
@@ -43,6 +45,8 @@ const ImageGrid = (props) => {
         );
     }
 
+    //use map to create three columns from the three arrays given
+    //pass each img into the img tag
     const col1 = props.imgs[0].map(function(img) {
         return (
             <img src={img} className="img-fluid mb-4" />
@@ -61,6 +65,7 @@ const ImageGrid = (props) => {
         );
     });
 
+     //return the row and cols put inside the grid div
     return (
         <div className="col-10" id="grid">
             <div className="row">
@@ -78,6 +83,10 @@ const ImageGrid = (props) => {
     );
 }
 
+/* render the sidebar
+
+if someone is logged in, it renders the logged in sidebar (username, logout)
+if not logged in, just shows signup and login*/
 const SideBar = (props) => {
     if(props.username === "" || !props.username) {     
         return (
@@ -96,6 +105,8 @@ const SideBar = (props) => {
     );
 }
 
+/*Make a GET request to get the random images from all users
+These images are then passed into ImageGrid which is rendered in the #grid div*/
 const loadImages = () => {
     sendGenericAjax('GET', '/getHomeImg', null, (data) => {
         ReactDOM.render(
@@ -104,6 +115,8 @@ const loadImages = () => {
     });
 };
 
+/*Make a GET request to get the current user's name from the image controller
+These images are then passed into SideBar if someone is logged in*/
 const loadUsername = () => { 
     sendGenericAjax('GET', '/getUsername', null, (data) => { 
         ReactDOM.render(
@@ -112,7 +125,10 @@ const loadUsername = () => {
     });
 }
 
+//This sets up the render for  the actual page appearence
 const setup = function(csrf) {
+     /* Render each element of the page and pass in empty strings and arrays + their csrf tokens, 
+    as they'll be getting their info from the three load functions above */
     ReactDOM.render(
         <Header />, document.querySelector("#header")
     );
@@ -125,17 +141,19 @@ const setup = function(csrf) {
         <SideBar username={""} />, document.querySelector("#sidebar")
     );
 
+    //load all the data for the sections above
     loadImages();
     loadUsername();
 };
 
-
+//Get the CSRF token
 const getToken = () => {
     sendGenericAjax('GET', '/getToken', null, (result) => {
         setup(result.csrfToken);
     });
 };
 
+//Call get token when the document is ready
 $(document).ready(function() {
     getToken();
 });
