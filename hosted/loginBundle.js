@@ -1,5 +1,7 @@
 "use strict";
 
+//Handles login requests
+//Sends back and shows error messages if field are incorrect
 var handleLogin = function handleLogin(e) {
   e.preventDefault();
 
@@ -20,6 +22,9 @@ var handleLogin = function handleLogin(e) {
   return false;
 };
 
+//The form that handles login
+//Accepts a username and password and gives the user the option to create an account
+//Sends a post request on submit
 var LoginForm = function LoginForm(props) {
   return React.createElement(
     "div",

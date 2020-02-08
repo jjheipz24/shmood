@@ -1,5 +1,7 @@
 "use strict";
 
+//Handles signup requests
+//Sends back and shows an error if fields aren't correct 
 var handleSignup = function handleSignup(e) {
   e.preventDefault();
 
@@ -20,6 +22,9 @@ var handleSignup = function handleSignup(e) {
   return false;
 };
 
+//The form that handles signup
+//Accepts a username and password and gives the user the option to login if they already have an account
+//Sends a post request on submit
 var SignupForm = function SignupForm(props) {
   return React.createElement(
     "form",

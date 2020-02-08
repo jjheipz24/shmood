@@ -68,7 +68,7 @@ var fileUpload = function fileUpload(action, data) {
     }
   });
 };
-
+//handles clear board request
 var clearBoard = function clearBoard(method, action, data, callback) {
   console.log(data);
   $.ajax({

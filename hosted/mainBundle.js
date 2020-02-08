@@ -17,6 +17,7 @@ var handleImg = function handleImg(e) {
     return false;
 };
 
+//JSX for the header of the homepage
 var Header = function Header() {
     return React.createElement(
         "div",
@@ -47,6 +48,7 @@ var Header = function Header() {
     );
 };
 
+//JSX that renders the image grid, takes in the images gotten from below
 var ImageGrid = function ImageGrid(props) {
     console.dir(props.imgs);
     if (props.imgs.length === 0) {
@@ -61,6 +63,8 @@ var ImageGrid = function ImageGrid(props) {
         );
     }
 
+    //use map to create three columns from the three arrays given
+    //pass each img into the img tag
     var col1 = props.imgs[0].map(function (img) {
         return React.createElement("img", { src: img, className: "img-fluid mb-4" });
     });
@@ -73,6 +77,7 @@ var ImageGrid = function ImageGrid(props) {
         return React.createElement("img", { src: img, className: "img-fluid mb-4" });
     });
 
+    //return the row and cols put inside the grid div
     return React.createElement(
         "div",
         { className: "col-10", id: "grid" },
@@ -98,6 +103,10 @@ var ImageGrid = function ImageGrid(props) {
     );
 };
 
+/* render the sidebar
+
+if someone is logged in, it renders the logged in sidebar (username, logout)
+if not logged in, just shows signup and login*/
 var SideBar = function SideBar(props) {
     if (props.username === "" || !props.username) {
         return React.createElement(
@@ -148,35 +157,45 @@ var SideBar = function SideBar(props) {
     );
 };
 
+/*Make a GET request to get the random images from all users
+These images are then passed into ImageGrid which is rendered in the #grid div*/
 var loadImages = function loadImages() {
     sendGenericAjax('GET', '/getHomeImg', null, function (data) {
         ReactDOM.render(React.createElement(ImageGrid, { imgs: data.imgs }), document.querySelector("#grid"));
     });
 };
 
+/*Make a GET request to get the current user's name from the image controller
+These images are then passed into SideBar if someone is logged in*/
 var loadUsername = function loadUsername() {
     sendGenericAjax('GET', '/getUsername', null, function (data) {
         ReactDOM.render(React.createElement(SideBar, { username: data.username }), document.querySelector("#sidebar"));
     });
 };
 
+//This sets up the render for  the actual page appearence
 var setup = function setup(csrf) {
+    /* Render each element of the page and pass in empty strings and arrays + their csrf tokens, 
+    as they'll be getting their info from the three load functions above */
     ReactDOM.render(React.createElement(Header, null), document.querySelector("#header"));
 
     ReactDOM.render(React.createElement(ImageGrid, { imgs: [] }), document.querySelector("#grid"));
 
     ReactDOM.render(React.createElement(SideBar, { username: "" }), document.querySelector("#sidebar"));
 
+    //load all the data for the sections above
     loadImages();
     loadUsername();
 };
 
+//Get the CSRF token
 var getToken = function getToken() {
     sendGenericAjax('GET', '/getToken', null, function (result) {
         setup(result.csrfToken);
     });
 };
 
+//Call get token when the document is ready
 $(document).ready(function () {
     getToken();
 });
