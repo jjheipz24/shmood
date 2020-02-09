@@ -56,12 +56,12 @@ ImageSchema.statics.findRandom = (callback) => ImgModel.find()
   .exec(callback);
 
 
-ImageSchema.statics.deleteByOwner = (ownerId, callback) => {  
+ImageSchema.statics.deleteByOwner = (ownerId, callback) => {
   const search = {
     user: convertId(ownerId),
   };
 
-return ImgModel.deleteMany(search, callback);
+  return ImgModel.deleteMany(search, callback);
 };
 
 ImgModel = mongoose.model('Images', ImageSchema);

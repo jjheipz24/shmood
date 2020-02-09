@@ -11,7 +11,7 @@ const imageSaveHelper = (req, res, imgToSave) => {
     });
   }
 
-  //save info to image model
+  // save info to image model
   const imgFile = {
     name: imgToSave.name,
     data: imgToSave.data,
@@ -20,7 +20,7 @@ const imageSaveHelper = (req, res, imgToSave) => {
     user: req.session.account._id,
   };
 
-  //return the create image model
+  // return the create image model
   const imageModel = new Img.ImgModel(imgFile);
   return imageModel;
 };
@@ -49,13 +49,13 @@ const uploadImage = (req, res) => {
       );
     });
   } else {
-    //push single img upload to the promises array
+    // push single img upload to the promises array
     promises.push(
       imageSaveHelper(req, res, req.files.img).save()
     );
   }
 
-  //return all promises at the same time
+  // return all promises at the same time
   return Promise.all(promises)
   // redirect after finished saving
   .then(() => {
@@ -153,7 +153,7 @@ const getHomeImg = (request, response) => {
 
 /* Find the images uploaded by the user and create
 an array of their img paths. Then, split that array into 3 parts to pass
-into the 3 columns in the view. Also, pass in the username and csrf token 
+into the 3 columns in the view. Also, pass in the username and csrf token
 
 return a json of these images*/
 const getUserImg = (request, response) => {
@@ -183,7 +183,7 @@ const getUserImg = (request, response) => {
   });
 };
 
-/*grab the username of the current session account and pass it back in a json*/
+/* grab the username of the current session account and pass it back in a json*/
 const getUsername = (request, response) => {
   const req = request;
   const res = response;
@@ -205,7 +205,7 @@ const clearAll = (req, res) => {
 
     return res.status(200).json({
       message: 'Success',
-      redirect: '/userPage'
+      redirect: '/userPage',
     });
   });
 };
